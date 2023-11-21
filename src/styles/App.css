@@ -1,0 +1,49 @@
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+.appTitle {
+  /* text-align: center; */
+  padding: 15px;
+  max-width: 50%
+}
+
+.cardGrid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+.topBar {
+  display: flex;
+  flex-direction: row!important;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  width: 100%
+}
+
+.headerText {
+  margin: auto;
+  max-width: 200px;
+  padding: 10px;
+}
+
+.card {
+  margin: 15px;
+  max-width: 300px;
+}
+.auth-card {
+  width: 50%;
+  margin: auto;
+}
+
+.list-item-name {
+  text-align: center;
+}

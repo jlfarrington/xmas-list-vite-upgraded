@@ -1,4 +1,3 @@
-import React from "react";
 import {
 	Button,
 	Card,
@@ -9,6 +8,7 @@ import {
 } from "@mui/material";
 import "../styles/App.css";
 import { data } from "../Data";
+import * as React from "react";
 
 const CardGrid = (value) => {
 	return (
@@ -27,7 +27,7 @@ const CardGrid = (value) => {
 								/>
 							</a>
 							<CardContent>
-								<Typography variant="h6">{obj.name}</Typography>
+								<Typography>{obj.name}</Typography>
 								<Typography>{obj.notes}</Typography>
 							</CardContent>
 							<CardActions>

@@ -1,6 +1,7 @@
 .App {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .appTitle {
@@ -26,7 +27,6 @@
   flex-direction: row!important;
   justify-content: space-between;
   margin-bottom: 40px;
-  width: 100%
 }
 
 .headerText {
@@ -40,7 +40,6 @@
   max-width: 300px;
 }
 .auth-card {
-  width: 50%;
   margin: auto;
 }
 

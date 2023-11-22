@@ -1,13 +1,12 @@
 import * as React from "react";
-import { Box, Button, CircularProgress, Modal, TextField } from "@mui/material";
-import { launchAndReturnInfo } from "../utils/linkInfoTool";
+import { Box, Button, CircularProgress, Modal } from "@mui/material";
+import GiftPreview from "./GiftPreview";
 
 const style = {
-	position: "absolute",
+	position: "relative",
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: 400,
 	bgcolor: "background.paper",
 	borderRadius: "3px",
 	boxShadow: 24,
@@ -16,12 +15,29 @@ const style = {
 	pb: 3,
 	display: "flex",
 	flexDirection: "column",
-	paddingTop: "4%",
 };
 
 export default function ChildModal(props) {
 	const [openChild, setOpenChild] = React.useState(false);
 	const [loading, setLoading] = React.useState(false);
+	const [giftInfo, setGiftInfo] = React.useState();
+
+	const fetchGiftInfo = async (giftUrl) => {
+		console.log(`fetching gift info for the following URL: `, giftUrl);
+		const infoResponse = await fetch("http://localhost:8080/info", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				url: giftUrl,
+			}),
+		});
+		const infoJson = await infoResponse.json();
+		console.log(infoJson);
+		setGiftInfo(infoJson.linkInfo);
+		// const infoNamesArr = infoJson.map((user) => user.name);
+		// console.log(infoNamesArr);
+		// setinfo(infoNamesArr);
+	};
 
 	const handleOpen = () => {
 		setOpenChild(true);
@@ -34,10 +50,10 @@ export default function ChildModal(props) {
 
 	const generateGiftInfo = async (url) => {
 		setLoading(true);
-		await launchAndReturnInfo(url);
-		setTimeout(() => {
-			setLoading(false);
-		}, 5000);
+		// make call to get gift info
+		await fetchGiftInfo(props.giftUrl);
+
+		setLoading(false);
 	};
 
 	return (
@@ -49,11 +65,12 @@ export default function ChildModal(props) {
 				aria-labelledby="child-modal-title"
 				aria-describedby="child-modal-description"
 			>
-				<Box sx={{ ...style, width: 200 }}>
+				<Box sx={{ ...style, maxWidth: 1000 }}>
 					<h2 id="child-modal-title">Gift Preview</h2>
 					{loading ? <CircularProgress color="primary" /> : null}
-					<p id="child-modal-description">{props.giftUrl}</p>
-					<Button onClick={handleClose}>Add to list</Button>
+					{!loading && giftInfo && giftInfo.title !== "" ? (
+						<GiftPreview giftInfo={giftInfo} />
+					) : null}
 				</Box>
 			</Modal>
 		</React.Fragment>

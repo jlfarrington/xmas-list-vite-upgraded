@@ -1,8 +1,8 @@
-import * as React from "react";
 import PropTypes from "prop-types";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import CardGrid from "./CardGrid";
 import AddGiftModal from "../addGifts/AddGiftModal";
+import * as React from "react";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -44,7 +44,7 @@ const BasicTabs = (props) => {
 		setValue(newValue);
 	};
 
-	const usersArr = props.users;
+	//const usersArr = props.users;
 	const usersData = props.userData;
 	const token = localStorage.getItem("token");
 
@@ -52,19 +52,27 @@ const BasicTabs = (props) => {
 		<Box sx={{ width: "100%" }}>
 			<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
 				<Tabs value={value} onChange={handleChange} variant="fullWidth">
-					{usersArr.map((user, index) => {
-						if (user === token) {
-							return <Tab label={"My List"} {...a11yProps(index)} />;
+					{usersData.map((user, index) => {
+						if (user.id == token) {
+							return (
+								<Tab label={"My List"} {...a11yProps(index)} key={index} />
+							);
 						} else {
-							return <Tab label={`${user}'s List`} {...a11yProps(index)} />;
+							return (
+								<Tab
+									label={`${user.name}'s List`}
+									{...a11yProps(index)}
+									key={index}
+								/>
+							);
 						}
 					})}
 				</Tabs>
 			</Box>
 			{usersData.map((user, index) => {
 				return (
-					<TabPanel value={value} index={index}>
-						{user.name === token ? (
+					<TabPanel value={value} index={index} key={index}>
+						{user.id == token ? (
 							<>
 								<AddGiftModal />
 							</>

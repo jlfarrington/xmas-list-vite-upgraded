@@ -1,6 +1,6 @@
-import * as React from "react";
 import { Box, Button, Modal, TextField } from "@mui/material";
 import ChildModal from "./GiftData";
+import * as React from "react";
 
 const style = {
 	position: "absolute",
@@ -36,7 +36,7 @@ export default function AddGiftModal(props) {
 	};
 
 	return (
-		<div>
+		<React.Fragment>
 			<Button onClick={handleOpenParent} variant="contained">
 				Add Gifts To My List
 			</Button>
@@ -55,6 +55,6 @@ export default function AddGiftModal(props) {
 					<ChildModal giftUrl={giftUrl} />
 				</Box>
 			</Modal>
-		</div>
+		</React.Fragment>
 	);
 }

@@ -3,10 +3,10 @@ import TopBar from "./styles/TopBar";
 import BasicTabs from "./tabs/Tabs";
 import Auth from "./auth/Auth";
 import { useState, useEffect } from "react";
+import * as React from "react";
 
 const App = () => {
 	const [sessionToken, setSessionToken] = useState("");
-	const [users, setUsers] = useState();
 	const [userData, setUserData] = useState();
 
 	useEffect(() => {
@@ -15,9 +15,6 @@ const App = () => {
 			const usersJson = await usersResponse.json();
 			console.log(usersJson);
 			setUserData(usersJson);
-			const usersNamesArr = usersJson.map((user) => user.name);
-			console.log(usersNamesArr);
-			setUsers(usersNamesArr);
 		};
 
 		fetchUsers();
@@ -32,7 +29,6 @@ const App = () => {
 	const updateToken = (newToken) => {
 		localStorage.setItem("token", newToken);
 		setSessionToken(newToken);
-		console.log(sessionToken);
 	};
 
 	const clearToken = () => {
@@ -43,12 +39,12 @@ const App = () => {
 	const protectedViews = () => {
 		return sessionToken === localStorage.getItem("token") ? (
 			<>
-				{users ? (
-					<BasicTabs token={sessionToken} users={users} userData={userData} />
+				{userData ? (
+					<BasicTabs token={sessionToken} userData={userData} />
 				) : null}
 			</>
 		) : (
-			<Auth updateToken={updateToken} users={users} />
+			<Auth updateToken={updateToken} userData={userData} />
 		);
 	};
 

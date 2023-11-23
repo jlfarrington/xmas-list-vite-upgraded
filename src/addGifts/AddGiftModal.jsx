@@ -1,4 +1,4 @@
-import { Box, Button, Modal, TextField } from "@mui/material";
+import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import ChildModal from "./GiftData";
 import * as React from "react";
 
@@ -24,6 +24,7 @@ export default function AddGiftModal(props) {
 	const [giftUrl, setGiftUrl] = React.useState("");
 
 	const handleClose = () => {
+		setGiftUrl("");
 		setOpenParent(false);
 	};
 	const handleOpenParent = () => {
@@ -47,12 +48,17 @@ export default function AddGiftModal(props) {
 				aria-describedby="parent-modal-description"
 			>
 				<Box sx={{ ...style, width: 400 }}>
+					<Typography>Add a Gift To Your List</Typography>
 					<TextField
-						variant="filled"
+						variant="outlined"
 						placeholder="Gift URL"
 						onChange={(e) => handleChange(e.target.value)}
 					/>
-					<ChildModal giftUrl={giftUrl} />
+					<ChildModal
+						giftUrl={giftUrl}
+						onClose={handleClose}
+						setOpenParent={setOpenParent}
+					/>
 				</Box>
 			</Modal>
 		</React.Fragment>

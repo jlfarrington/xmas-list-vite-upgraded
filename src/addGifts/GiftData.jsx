@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Box, Button, CircularProgress, Modal } from "@mui/material";
+import {
+	Box,
+	Button,
+	CircularProgress,
+	Modal,
+	Typography,
+} from "@mui/material";
 import GiftPreview from "./GiftPreview";
 
 const style = {
@@ -68,8 +74,14 @@ export default function ChildModal(props) {
 				<Box sx={{ ...style, maxWidth: 1000 }}>
 					<h2 id="child-modal-title">Gift Preview</h2>
 					{loading ? <CircularProgress color="primary" /> : null}
-					{!loading && giftInfo && giftInfo.title !== "" ? (
-						<GiftPreview giftInfo={giftInfo} />
+					{!loading && giftInfo && giftInfo.url !== "" ? (
+						<GiftPreview
+							giftInfo={giftInfo}
+							onClose={handleClose}
+							setGiftInfo={setGiftInfo}
+							setOpenChild={setOpenChild}
+							setOpenParent={props.setOpenParent}
+						/>
 					) : null}
 				</Box>
 			</Modal>

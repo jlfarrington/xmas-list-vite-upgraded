@@ -47,6 +47,9 @@ const BasicTabs = (props) => {
 	//const usersArr = props.users;
 	const usersData = props.userData;
 	const token = localStorage.getItem("token");
+	React.useEffect(() => {
+		setValue(parseInt(token) - 1);
+	}, [token]);
 
 	return (
 		<Box sx={{ width: "100%" }}>
@@ -78,7 +81,7 @@ const BasicTabs = (props) => {
 							</>
 						) : null}
 						{user.name}, UserId: {user.id}
-						<CardGrid value={index} />
+						<CardGrid value={user.id} />
 					</TabPanel>
 				);
 			})}

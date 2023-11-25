@@ -1,8 +1,14 @@
 import PropTypes from "prop-types";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Container, Tab, Tabs, Typography } from "@mui/material";
 import CardGrid from "./CardGrid";
 import AddGiftModal from "../addGifts/AddGiftModal";
 import * as React from "react";
+
+const style = {
+	display: "flex",
+	flexDirection: "row",
+	justifyContent: "right",
+};
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -76,11 +82,14 @@ const BasicTabs = (props) => {
 				return (
 					<TabPanel value={value} index={index} key={index}>
 						{user.id == token ? (
-							<>
+							<Container
+								maxWidth="xl"
+								className="add-gift-button"
+								style={style}
+							>
 								<AddGiftModal />
-							</>
+							</Container>
 						) : null}
-						{user.name}, UserId: {user.id}
 						<CardGrid value={user.id} />
 					</TabPanel>
 				);

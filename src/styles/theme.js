@@ -10,8 +10,20 @@ const theme = createTheme({
 		secondary: {
 			main: "#FFFFFF",
 		},
+		accent: {
+			main: "#400040",
+		},
 		error: {
 			main: red.A400,
+		},
+	},
+	typography: {
+		subtitle1: {
+			fontStyle: "italic",
+		},
+		subtitle2: {
+			fontWeight: "700",
+			fontSize: 16,
 		},
 	},
 });

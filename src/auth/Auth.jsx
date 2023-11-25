@@ -1,43 +1,50 @@
-import { Card, List, ListItem, Tooltip, Typography } from "@mui/material";
+import {
+	Card,
+	List,
+	ListItem,
+	ListItemButton,
+	Tooltip,
+	Typography,
+} from "@mui/material";
 import * as React from "react";
 
 const style = {
-	position: "relative",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	width: 400,
 	bgcolor: "background.paper",
-	borderRadius: "3px",
-	boxShadow: 24,
-	pt: 2,
-	px: 4,
-	pb: 3,
+	borderRadius: "4px",
+	boxShadow: 90,
+	pt: 4,
+	px: 8,
+	pb: 6,
 	display: "flex",
 	flexDirection: "column",
-	paddingTop: "4%",
+	padding: "2% 4% 2% 4%",
+	marginTop: "15%",
+};
+
+const titleStyle = {
+	paddingBottom: "2%",
 };
 
 const Auth = (props) => {
 	const { userData, ...other } = props;
 	return (
 		<Card className="auth-card" style={style}>
-			<Tooltip title="Note: Choose Parker to add gifts to Parker's List, and yourself to add gifts to your own list">
-				<Typography>Who are you?</Typography>
-			</Tooltip>
-			<br></br>
+			<Typography variant="h4" align="center" style={titleStyle}>
+				Welcome! Who are you?
+			</Typography>
 			<List>
 				{props.userData
 					? props.userData.map((user, index) => {
 							return (
-								<ListItem
+								<ListItemButton
 									key={index}
-									divider
 									style={{ display: "flex", justifyContent: "center" }}
 									onClick={() => props.updateToken(user.id)}
 								>
-									<Typography key={index}>{user.name}</Typography>
-								</ListItem>
+									<Typography variant="button" key={index}>
+										{user.name}
+									</Typography>
+								</ListItemButton>
 							);
 					  })
 					: null}

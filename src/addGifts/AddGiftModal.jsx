@@ -1,6 +1,15 @@
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import {
+	Box,
+	Button,
+	IconButton,
+	Modal,
+	TextField,
+	Tooltip,
+	Typography,
+} from "@mui/material";
 import ChildModal from "./GiftData";
 import * as React from "react";
+import { AddCircle } from "@mui/icons-material";
 
 const style = {
 	position: "absolute",
@@ -16,7 +25,9 @@ const style = {
 	pb: 3,
 	display: "flex",
 	flexDirection: "column",
-	paddingTop: "4%",
+	paddingTop: "1%",
+	minHeight: "20%",
+	justifyContent: "space-around",
 };
 
 export default function AddGiftModal(props) {
@@ -38,9 +49,11 @@ export default function AddGiftModal(props) {
 
 	return (
 		<React.Fragment>
-			<Button onClick={handleOpenParent} variant="contained">
-				Add Gifts To My List
-			</Button>
+			<IconButton size="large" onClick={handleOpenParent}>
+				<Tooltip title="Add a Gift">
+					<AddCircle color="accent" fontSize="large" />
+				</Tooltip>
+			</IconButton>
 			<Modal
 				open={openParent}
 				onClose={handleClose}
@@ -48,7 +61,7 @@ export default function AddGiftModal(props) {
 				aria-describedby="parent-modal-description"
 			>
 				<Box sx={{ ...style, width: 400 }}>
-					<Typography>Add a Gift To Your List</Typography>
+					<Typography variant="h5">Add a Gift To Your List</Typography>
 					<TextField
 						variant="outlined"
 						placeholder="Gift URL"

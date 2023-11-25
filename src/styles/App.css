@@ -1,32 +1,5 @@
-.App {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.appTitle {
-  /* text-align: center; */
-  padding: 15px;
-  max-width: 50%
-}
-
-.cardGrid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
 .App-link {
   color: #61dafb;
-}
-
-
-.topBar {
-  display: flex;
-  flex-direction: row!important;
-  justify-content: space-between;
-  margin-bottom: 40px;
 }
 
 .headerText {
@@ -35,14 +8,41 @@
   padding: 10px;
 }
 
+.appTitle {
+  text-align: center;
+  padding: 15px;
+  max-width: 50%
+}
+
+.auth-card {
+  max-width: 50%;
+  margin: auto;
+}
 .card {
   margin: 15px;
   max-width: 300px;
 }
-.auth-card {
-  margin: auto;
+.cardGrid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
-.list-item-name {
-  text-align: center;
+.topBar {
+  display: flex;
+  flex-direction: row!important;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-left: 1%;
+  padding-right: 1%;
+  height: 100px;
 }
+
+.parent-app {
+  display: flex;
+  flex-direction: column;
+}
+
+

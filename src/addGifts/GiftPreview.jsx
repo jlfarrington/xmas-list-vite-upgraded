@@ -1,5 +1,7 @@
+import { CheckCircle } from "@mui/icons-material";
 import {
 	Button,
+	Container,
 	FormControl,
 	Input,
 	TextField,
@@ -7,6 +9,30 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import { useEffect } from "react";
+
+const style = {
+	display: "flex",
+	flexDirection: "column",
+	gap: "20px",
+	marginTop: "2%",
+	marginBottom: "2%",
+};
+
+const formStyle = {
+	display: "flex",
+	flexDirection: "column",
+	gap: "10px",
+};
+
+const successStyle = {
+	display: "flex",
+	flexDirection: "column",
+	paddingTop: "2%",
+	justifyContent: "center",
+	minHeight: "460px",
+	alignItems: "center",
+	gap: "30px",
+};
 
 export default function GiftPreview(props) {
 	const [giftPrice, setGiftPrice] = React.useState();
@@ -56,7 +82,6 @@ export default function GiftPreview(props) {
 		const userObjToSend = {
 			id: localStorage.getItem("token"),
 		};
-		console.log(`Adding the gift to the database: `, giftObjToSend.url);
 		const infoResponse = await fetch("http://localhost:8080/gift", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -66,21 +91,21 @@ export default function GiftPreview(props) {
 			}),
 		});
 		const giftSuccessJson = await infoResponse.json();
-		console.log(giftSuccessJson);
 		resetGiftInfoAndCloseModal();
 	};
 
 	return (
 		<>
 			{giftShortUrl && !showSuccess ? (
-				<React.Fragment>
-					<Typography>
+				<Container maxWidt="xl" sx={style}>
+					<Typography variant="subtitle1">
 						Use the form below to confirm or override your gift info.
 					</Typography>
-					<FormControl>
+					<FormControl sx={formStyle}>
 						<TextField
 							helperText="Gift Title"
 							variant="outlined"
+							color="accent"
 							name="gift-title"
 							value={giftTitle}
 							onChange={(e) => setGiftTitle(e.target.value)}
@@ -89,6 +114,7 @@ export default function GiftPreview(props) {
 						<TextField
 							helperText="Gift Price"
 							variant="outlined"
+							color="accent"
 							name="gift-price"
 							value={giftPrice}
 							onChange={(e) => setGiftPrice(e.target.value)}
@@ -96,15 +122,25 @@ export default function GiftPreview(props) {
 						<TextField
 							helperText="Gift Link"
 							variant="outlined"
+							color="accent"
 							name="gift-short-url"
 							value={giftShortUrl}
 							onChange={(e) => setGiftShortUrl(e.target.value)}
 						/>
-						<Button onClick={() => sendGift()}>Add to Your List</Button>
+						<Button variant="contained" onClick={() => sendGift()}>
+							Add to Your List
+						</Button>
 					</FormControl>
-				</React.Fragment>
+				</Container>
 			) : null}
-			{showSuccess ? <Typography>success!</Typography> : null}
+			{showSuccess ? (
+				<Container maxWidth="xl" sx={successStyle}>
+					<CheckCircle color="success" fontSize="large" />
+					<Typography variant="subtitle1">
+						Gift has been successfully added to your list!
+					</Typography>
+				</Container>
+			) : null}
 		</>
 	);
 }

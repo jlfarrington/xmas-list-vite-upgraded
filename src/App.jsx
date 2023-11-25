@@ -4,6 +4,8 @@ import BasicTabs from "./tabs/Tabs";
 import Auth from "./auth/Auth";
 import { useState, useEffect } from "react";
 import * as React from "react";
+import { Container, ThemeProvider } from "@mui/material";
+import theme from "./styles/theme";
 
 const App = () => {
 	const [sessionToken, setSessionToken] = useState("");
@@ -49,9 +51,13 @@ const App = () => {
 	};
 
 	return (
-		<div>
-			<TopBar clickLogout={clearToken} />
-			{protectedViews()}
+		<div className="parent-app">
+			<ThemeProvider theme={theme}>
+				<TopBar clickLogout={clearToken} />
+				<Container maxWidth="xl" className="protected-views">
+					{protectedViews()}
+				</Container>
+			</ThemeProvider>
 		</div>
 	);
 };

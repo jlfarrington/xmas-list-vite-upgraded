@@ -3,10 +3,13 @@ import {
 	Box,
 	Button,
 	CircularProgress,
+	Container,
+	Icon,
 	Modal,
 	Typography,
 } from "@mui/material";
 import GiftPreview from "./GiftPreview";
+import { ErrorOutline } from "@mui/icons-material";
 
 const style = {
 	position: "relative",
@@ -21,12 +24,25 @@ const style = {
 	pb: 3,
 	display: "flex",
 	flexDirection: "column",
+	paddingTop: "2%",
+	minHeight: "40%",
+};
+
+const containerStyle = {
+	display: "flex",
+	flexDirection: "column",
+	paddingTop: "2%",
+	justifyContent: "center",
+	minHeight: "460px",
+	alignItems: "center",
+	gap: "30px",
 };
 
 export default function ChildModal(props) {
 	const [openChild, setOpenChild] = React.useState(false);
 	const [loading, setLoading] = React.useState(false);
 	const [giftInfo, setGiftInfo] = React.useState();
+	const [error, setError] = React.useState(false);
 
 	const fetchGiftInfo = async (giftUrl) => {
 		console.log(`fetching gift info for the following URL: `, giftUrl);
@@ -38,11 +54,10 @@ export default function ChildModal(props) {
 			}),
 		});
 		const infoJson = await infoResponse.json();
-		console.log(infoJson);
+		if (infoJson.message) {
+			setError(true);
+		}
 		setGiftInfo(infoJson.linkInfo);
-		// const infoNamesArr = infoJson.map((user) => user.name);
-		// console.log(infoNamesArr);
-		// setinfo(infoNamesArr);
 	};
 
 	const handleOpen = () => {
@@ -51,6 +66,7 @@ export default function ChildModal(props) {
 	};
 
 	const handleClose = () => {
+		setError(false);
 		setOpenChild(false);
 	};
 
@@ -64,7 +80,9 @@ export default function ChildModal(props) {
 
 	return (
 		<React.Fragment>
-			<Button onClick={handleOpen}>Generate Gift Info</Button>
+			<Button variant="contained" onClick={handleOpen}>
+				Generate Gift Info
+			</Button>
 			<Modal
 				open={openChild}
 				onClose={handleClose}
@@ -72,8 +90,33 @@ export default function ChildModal(props) {
 				aria-describedby="child-modal-description"
 			>
 				<Box sx={{ ...style, maxWidth: 1000 }}>
-					<h2 id="child-modal-title">Gift Preview</h2>
-					{loading ? <CircularProgress color="primary" /> : null}
+					<Typography variant="h5" id="child-modal-title">
+						Gift Preview
+					</Typography>
+
+					{loading ? (
+						<Container size="xl" sx={containerStyle}>
+							<CircularProgress color="accent" />
+							<Typography variant="subtitle1">
+								Be patient! Gift info retrieval can take up to 30 seconds.
+							</Typography>{" "}
+						</Container>
+					) : error ? (
+						<Container size="xl" sx={containerStyle}>
+							<ErrorOutline color="error" fontSize="large" />
+							<Typography variant="subtitle1">
+								There was an error fetching gift info. Try another link!
+							</Typography>
+							<Button
+								variant="contained"
+								onClick={() => handleClose()}
+								color="error"
+							>
+								Go Back
+							</Button>
+						</Container>
+					) : null}
+
 					{!loading && giftInfo && giftInfo.url !== "" ? (
 						<GiftPreview
 							giftInfo={giftInfo}

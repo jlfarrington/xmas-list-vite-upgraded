@@ -5,7 +5,7 @@ import * as React from "react";
 
 const TopBar = (props) => {
 	return (
-		<AppBar position="sticky" className="topBar" color="success">
+		<AppBar position="sticky" color="primary" className="topBar">
 			<Typography variant="h4" className="appTitle">
 				Family Christmas List
 			</Typography>
